@@ -8,7 +8,8 @@
     "build": "npm run clean && babel src -d dist",
     "example": "npm run build && node ./dist/example.js",
     "clean": "rimraf dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "prepare": "npn run build"
   },
   "author": "",
   "license": "ISC",
