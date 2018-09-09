@@ -12,12 +12,13 @@ class VehBigchainDriver {
                           {  app_id: opts.app_id || '3b959424',
 		                         app_key: opts.app_key || '30c12a0e15343d705a7e7ccb6d75f1c0'
                           });
-      this.keyPair = opts.keypair || new this.orm.driver.Ed25519Keypair();
+      this.keyPair = opts.keyPair || new this.orm.driver.Ed25519Keypair();
       this.orm.define("devices", "https://schema.org/v1/myModel")
 
       this.registerDevice = this.registerDevice.bind(this);
       this.getDeviceInfo = this.getDeviceInfo.bind(this);
       this.update = this.update.bind(this);
+
   }
 
   async registerDevice(_deviceType, _location, _locationAccuracy, _householdType, _occupants) {
