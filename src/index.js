@@ -42,7 +42,7 @@ class VehBigchainDriver {
                                                     tarrif1: 0,
                                                     tariff2: 0
                                                 },
-                                                gasReceived: 3
+                                                gasReceived: 0
                                       }
       });
 
