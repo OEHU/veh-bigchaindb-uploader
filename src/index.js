@@ -20,18 +20,30 @@ class VehBigchainDriver {
       this.update = this.update.bind(this);
   }
 
-  async registerDevice(_deviceType, _deviceReading, _readingMetric, _location) {
+  async registerDevice(_deviceType, _location, _locationAccuracy, _householdType, _occupants) {
       console.log("BEGINNING REGISTRATION...");
       let asset = await this.orm.models.devices.create({ keypair: this.keyPair,
-                            	        data: { deviceType: _deviceType,
-                            					deviceReading: _deviceReading,
-                            					readingMetric: _readingMetric,
-                            					location: _location,
-                            					lastReadingTime: 'n/a',
-                            					lastReadingOutput: 'n/a'
-			}});
-      console.log(`\n\nASSET CREATED\n\nASSET ID: ${asset.id}  \nASSET TYPE: ${asset.data.deviceType}
-				\nASSET READING: ${asset.data.deviceReading} \nMEASUREMENT METRIC:${asset.data.readingMetric}`);
+                            	        data: {
+                                                deviceType: _deviceType,
+                                      					location : { type: "Point", coordinates: [ _location.lat, _location.long] }, //GEOJSON easy querying
+                                                locationAccuracy: _locationAccuracy,
+                                                householdType: _householdType,
+                                                occupants: _occupants,
+                                                //readings
+                                                lastUpdate: 0,
+                                                electricityReceived : {
+                                                    total: 0,
+                                                    tarrif1: 0,
+                                                    tariff2: 0
+                                                },
+                                                electricityDelivered : {
+                                                    total: 0,
+                                                    tarrif1: 0,
+                                                    tariff2: 0
+                                                },
+                                                gasReceived: 3
+                                      }
+      });
 
       return asset.id; //return the device id
   }
@@ -41,19 +53,16 @@ class VehBigchainDriver {
       return asset[0];
   }
 
-  async update(_deviceID, _time, _newReading) {
+  async update(_deviceID, reading) {
       let asset = await this.getDeviceInfo(_deviceID);
 
       let updatedAsset = await asset.append({
 	            toPublicKey: this.keyPair.publicKey,
 	            keypair: this.keyPair,
-				data: { deviceType: asset.data.deviceType,
-						deviceReading: asset.data.deviceReading,
-						readingMetric: asset.data.readingMetric,
-						location: asset.data.location,
-						lastReadingTime: _time,
-						lastReadingOutput: _newReading
-					},
+				data: {
+            ...asset.data,
+            ...reading,
+				},
 			});
 
       return updatedAsset;
