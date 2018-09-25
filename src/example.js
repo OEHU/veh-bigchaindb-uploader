@@ -7,7 +7,13 @@ const vehDriver = new VehBigchainDriver();
   async function test() {
       let deviceID = await vehDriver.registerDevice("SMART_METER", {lat: 51.923514, long: 4.469048}, 100, "office", 5);
       let asset = await vehDriver.getDeviceInfo(deviceID);
-      console.log(asset.data);
+      //console.log(asset.data);
+
+
+      console.log("getting all");
+
+      let assets = await vehDriver.getAllDevices();
+      console.log(JSON.stringify(assets, null, 4));
 
       let reading = {
         timestamp: Date.now(),
