@@ -35,7 +35,7 @@ class VehBigchainDriver {
                                                   householdType: _householdType,
                                                   occupants: _occupants,
                                                   //readings
-                                                  lastUpdate: 0,
+                                                  lastUpdate: Date.now(),
                                                   electricityReceived : {
                                                       total: 0,
                                                       tarrif1: 0,
