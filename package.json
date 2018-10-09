@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run clean && babel ./src -d ./dist",
     "example": "npm run build && node ./dist/example.js",
+    "reading": "npm run build && node ./dist/reading.js",
     "clean": "rimraf dist",
     "prepublish": "npm run build",
     "prepare": "npm run build"
@@ -15,7 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "bigchaindb-driver": "^4.1.0",
-    "bigchaindb-orm": "^3.0.1"
+    "bigchaindb-orm": "^3.0.1",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -1,8 +1,18 @@
+import R from "ramda";
 import VehBigchainDriver from "./index";
 
-const vehDriver = new VehBigchainDriver();
+  const vehDriver = new VehBigchainDriver({
+    network: 'http://188.166.15.225:9984/api/v1/',
+    app_id: null,
+    app_key: null
+  });
 
   test();
+
+  function showAsset(asset) {
+    console.log(asset.id)
+    console.log(asset.data)
+  }
 
   async function test() {
       let deviceID = await vehDriver.registerDevice("SMART_METER", {lat: 51.923514, long: 4.469048}, 100, "office", 5);
@@ -25,10 +35,16 @@ const vehDriver = new VehBigchainDriver();
         gasReceived: 3
       }
 
+
       let updatedAsset = await vehDriver.update(deviceID, reading);
       console.log("UPDATED");
       console.log(updatedAsset.data);
-      let burnedAsset = await vehDriver.burn(deviceID);
-      console.log("BURNED");
-      console.log(burnedAsset.data);
+
+      // let oneAsset = await vehDriver.getDeviceInfo(deviceID);
+      // console.log("DEVICE INFO");
+      // console.log(oneAsset.data);
+
+      let allAssets = await vehDriver.getAssets();
+      console.log("ALL ASSETS");
+      R.map(showAsset, allAssets)
   }
