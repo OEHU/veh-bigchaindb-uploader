@@ -8,7 +8,7 @@ class VehBigchainDriver {
         opts = {};
       }
       //initialise orm
-      this.orm = new Orm( opts.network || "http://188.166.15.225:9984/api/v1/",
+      this.orm = new Orm( opts.network || "http://128.199.46.166:9984/api/v1/",
                           {  app_id: opts.app_id || '3b959424',
 		                         app_key: opts.app_key || '30c12a0e15343d705a7e7ccb6d75f1c0'
                           });
@@ -77,6 +77,8 @@ class VehBigchainDriver {
   }
 
   async update(_deviceID, reading) {
+    console.log('FUNC:update in:veh-bigchaindb-uploader');
+    console.log('reading', reading);
       let asset;
       try {
         asset = await this.getDeviceInfo(_deviceID);
