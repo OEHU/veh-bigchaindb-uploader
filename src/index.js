@@ -38,12 +38,12 @@ class VehBigchainDriver {
                                                   lastUpdate: Date.now(),
                                                   electricityReceived : {
                                                       total: 0,
-                                                      tarrif1: 0,
+                                                      tariff1: 0,
                                                       tariff2: 0
                                                   },
                                                   electricityDelivered : {
                                                       total: 0,
-                                                      tarrif1: 0,
+                                                      tariff1: 0,
                                                       tariff2: 0
                                                   },
                                                   gasReceived: 0
@@ -77,8 +77,8 @@ class VehBigchainDriver {
   }
 
   async update(_deviceID, reading) {
-    console.log('FUNC:update in:veh-bigchaindb-uploader');
-    console.log('reading', reading);
+      // console.log('FUNC:update in:veh-bigchaindb-uploader');
+      // console.log('reading', reading);
       let asset;
       try {
         asset = await this.getDeviceInfo(_deviceID);

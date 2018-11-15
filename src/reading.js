@@ -24,12 +24,12 @@ import VehBigchainDriver from "./index";
         timestamp: Date.now(),
         electricityReceived : {
             total: 0.7,
-            tarrif1: 0.5,
+            tariff1: 0.5,
             tariff2: 0.2
         },
         electricityDelivered : {
             total: 0.7,
-            tarrif1: 0.5,
+            tariff1: 0.5,
             tariff2: 0.2
         },
         gasReceived: 3
