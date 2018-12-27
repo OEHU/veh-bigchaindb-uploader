@@ -15,8 +15,6 @@ class VehBigchainDriver {
       this.keyPair = opts.keyPair || new this.orm.driver.Ed25519Keypair();
       this.orm.define("devices", "https://schema.org/v1/myModel")
 
-      console.log("keyPair", this.keyPair);
-
       this.registerDevice = this.registerDevice.bind(this);
       this.getDeviceInfo = this.getDeviceInfo.bind(this);
       this.update = this.update.bind(this);
