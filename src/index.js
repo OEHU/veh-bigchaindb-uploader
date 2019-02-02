@@ -1,3 +1,4 @@
+import Bigchaindb from "bigchaindb-driver";
 import Orm from "bigchaindb-orm";
 
 class VehBigchainDriver {
@@ -78,18 +79,31 @@ class VehBigchainDriver {
     }
 
     async update(_deviceID, reading) {
-        console.log('FUNC:update in:veh-bigchaindb-uploader');
-        let updatedAsset;
+        // console.log('FUNC:update in:veh-bigchaindb-uploader');
+        console.log('reading', reading);
+        let asset;
         try {
-            updatedAsset = this.orm.models.devices.create({
-                keypair: this.keyPair,
-                data: reading,
-            });
+            asset = await this.getDeviceInfo(_deviceID);
+            console.log('FUNC:update IN:veh-bigchaindb-uploader');
+            console.log(asset);
+
+            let updatedAsset;
+            try {
+                updatedAsset = await asset.append({
+                    toPublicKey: this.keyPair.publicKey,
+                    keypair: this.keyPair,
+                    data: {
+                        ...asset.data,
+                        ...reading,
+                    },
+                });
+            } catch (e) {
+                console.log(e);
+            }
         } catch (e) {
-            console.log(e);
+            return e;
         }
-        console.log(updatedAsset);
-        return updatedAsset;
+        return asset;
     }
 
     // getAssets :: void -> Object
