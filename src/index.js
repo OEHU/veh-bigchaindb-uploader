@@ -14,7 +14,7 @@ class VehBigchainDriver {
                 app_key: opts.app_key || '30c12a0e15343d705a7e7ccb6d75f1c0'
             });
         this.keyPair = opts.keyPair || new this.orm.driver.Ed25519Keypair();
-        this.orm.define("devices", "https://schema.org/v1/myModel")
+        this.orm.define("devices", "https://schema.org/v1/myModel");
 
         this.registerDevice = this.registerDevice.bind(this);
         this.getDeviceInfo = this.getDeviceInfo.bind(this);
@@ -63,6 +63,8 @@ class VehBigchainDriver {
         } catch (e) {
             return e
         }
+        console.log('FUNC:getDeviceInfo IN:veh-bigchaindb-uploader');
+        console.log(asset);
         return asset[0];
     }
 
@@ -78,10 +80,12 @@ class VehBigchainDriver {
 
     async update(_deviceID, reading) {
         // console.log('FUNC:update in:veh-bigchaindb-uploader');
-        // console.log('reading', reading);
+        console.log('reading', reading);
         let asset;
         try {
             asset = await this.getDeviceInfo(_deviceID);
+            console.log('FUNC:update IN:veh-bigchaindb-uploader');
+            console.log(asset);
 
             let updatedAsset;
             try {
